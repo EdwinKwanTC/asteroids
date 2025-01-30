@@ -7,6 +7,7 @@ from asteroidfield import AsteroidField
 from constants import *
 from player import Player
 from shot import Shot
+from random import uniform
 
 def main():
     pygame.init()
@@ -38,6 +39,11 @@ def main():
         updatable.update(dt)
 
         for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.detect_collision(shot):
+                    asteroid.split()
+                    shot.kill()
+
             if player.detect_collision(asteroid):
                 print("Game Over")
                 sys.exit()
